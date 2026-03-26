@@ -7,4 +7,6 @@ Lumina is built with standard Python libraries no complex dependencies or heavy 
 # The Mission
 Information should be accessible, free, and beautiful. Lumina is a "zero-paywall" knowledge injector built for developers, students, and the naturally curious who want to turn their terminal into a window for growth.
 
+<img width="845" height="304" alt="image" src="https://github.com/user-attachments/assets/28d4258c-0f5d-4027-8949-8e93dc66ccc9" />
+
 <img width="716" height="951" alt="image" src="https://github.com/user-attachments/assets/0c08b845-9bcd-440b-82ea-92679ef07097" />
