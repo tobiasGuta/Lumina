@@ -5,6 +5,7 @@ import random
 import os
 import html
 import re
+import datetime
 
 # --- DRACULA THEME COLORS ---
 C = {
@@ -41,8 +42,7 @@ def draw_box(title, content, color):
     print(f"{color}└{'─' * (width - 2)}┘{C['RESET']}")
 
 def get_random_word_definition():
-    found_valid_word = False
-    while not found_valid_word:
+    for _ in range(10):
         try:
             word_raw = fetch_data("https://random-word-api.herokuapp.com/word?number=1")
             target_word = word_raw[0]
@@ -71,8 +71,8 @@ def get_random_word_definition():
                     "", 
                     f"Definition: {definition}"
                 ], C['ORANGE'])
-                found_valid_word = True
-        except: 
+                return
+        except Exception:
             continue
 
 def run_trivia():
@@ -95,7 +95,7 @@ def run_trivia():
                 print(f"\n{C['GREEN']}CORRECT: Access Granted.{C['RESET']}")
             else:
                 print(f"\n{C['RED']}FAILED: Correct answer was {correct}.{C['RESET']}")
-    except: pass
+    except Exception: pass
 
 def show_random_report():
     clear()
@@ -107,7 +107,7 @@ def show_random_report():
     try:
         activity = fetch_data("https://bored-api.appbrewery.com/random")
         draw_box("Mission", [f"Action: {activity['activity']}"], C['GREEN'])
-    except: pass
+    except Exception: pass
 
     # 2. Watch This (TED Generator)
     draw_box("Watch This (TED)", [
@@ -124,7 +124,7 @@ def show_random_report():
         title = random.choice(list_data['query']['categorymembers'])['title']
         wiki = fetch_data(f"https://en.wikipedia.org/api/rest_v1/page/summary/{urllib.parse.quote(title)}")
         draw_box(f"Topic: {wiki_cat}", [wiki['title'], "", wiki['extract'], "", f"Link: {wiki['content_urls']['desktop']['page']}"], C['CYAN'])
-    except: pass
+    except Exception: pass
 
     # 4. Vocabulary
     get_random_word_definition()
@@ -134,9 +134,37 @@ def show_random_report():
         advice = fetch_data("https://api.adviceslip.com/advice")['slip']['advice']
         fact = fetch_data("https://uselessfacts.jsph.pl/api/v2/facts/random")['text']
         draw_box("Insights", [f"Advice: {advice}", "", f"Fact: {fact}"], C['YELLOW'])
-    except: pass
+    except Exception: pass
 
-    # 6. Trivia
+    # 6. Today in History
+    try:
+        today = datetime.date.today()
+        history_data = fetch_data(
+            f"https://en.wikipedia.org/api/rest_v1/feed/onthisday/events/{today.month}/{today.day}"
+        )
+        events = history_data.get('events', [])
+        if events:
+            event = random.choice(events[:10])
+            draw_box(f"Today in History ({today.strftime('%B %d')})", [
+                f"Year: {event.get('year', 'Unknown')}",
+                "",
+                event.get('text', '')
+            ], C['RED'])
+    except Exception: pass
+
+    # 7. Quote
+    try:
+        quote_data = fetch_data("https://zenquotes.io/api/random")
+        if quote_data:
+            q = quote_data[0]
+            draw_box("Inspirational Quote", [
+                f'"{q["q"]}"',
+                "",
+                f"— {q['a']}"
+            ], C['PURPLE'])
+    except Exception: pass
+
+    # 8. Trivia
     print(f"\n{C['COMMENT']}Preparing Interactive Module...{C['RESET']}")
     run_trivia()
     input(f"\n{C['COMMENT']}Press Enter to return to main frame...{C['RESET']}")
