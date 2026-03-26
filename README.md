@@ -10,3 +10,6 @@ Information should be accessible, free, and beautiful. Lumina is a "zero-paywall
 <img width="845" height="304" alt="image" src="https://github.com/user-attachments/assets/28d4258c-0f5d-4027-8949-8e93dc66ccc9" />
 
 <img width="716" height="951" alt="image" src="https://github.com/user-attachments/assets/0c08b845-9bcd-440b-82ea-92679ef07097" />
+
+# Contributing
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Please see CONTRIBUTING.md for our "No-Key" standard.
