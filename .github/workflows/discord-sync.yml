@@ -1,0 +1,25 @@
+name: Daily Discord Knowledge Sync
+
+on:
+  schedule:
+    # Runs at 7:00 AM New York time (11:00 UTC during DST)
+    - cron: '0 11 * * *'
+  workflow_dispatch:
+
+jobs:
+  run-sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Run Main Script
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: python main.py
