@@ -157,6 +157,13 @@ def run_discord_sync(webhook_url):
     if activity and 'activity' in activity:
         main_embed["fields"].append({"name": "Mission", "value": activity['activity'], "inline": False})
 
+    # TED Talk (ADDED THIS BLOCK)
+    main_embed["fields"].append({
+        "name": "Watch This (TED)",
+        "value": "Access a new random TED talk from the community archives:\n[Random TED Talk Generator](https://omarsinan.github.io/projects/ted/)",
+        "inline": False
+    })
+
     # Wikipedia
     topics = ["Cryptography", "Archaeology", "Astrophysics", "Marine_biology", "Ancient_Rome", "Cybersecurity", "Philosophy"]
     wiki_cat = random.choice(topics)
