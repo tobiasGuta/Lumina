@@ -22,4 +22,4 @@ jobs:
       - name: Run Main Script
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        run: python main.py
+        run: python learner.py
